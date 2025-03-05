@@ -52,7 +52,8 @@ O banco de dados foi modelado seguindo boas práticas de normalização e utiliz
 
 ## Equipe de Desenvolvimento 👩‍💻 
 
-💖 Feito com muito carinho por Ronaldo Urquiza e João Victor Pinheiro 💖
+💖 Feito com muito carinho por Ronaldo Urquiza e João Victor Pinheiro 
+
 🌟 Se gostou, não esqueça de dar uma ⭐ no repositório!
 
 ### 📌 Observação fofa:
