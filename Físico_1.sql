@@ -1,136 +1,110 @@
-/* Lógico_1: */
+/* Físico_1: */
 
 CREATE TABLE Hospede (
-    ID_hospede int PRIMARY KEY,
-    nome_hospede VARCHAR,
-    cpf_hospede VARCHAR,
-    fk_email_hospede_email_hospede_PK VARCHAR,
-    fk_telefone_hospede_telefone_hospede_PK VARCHAR,
-    CEP_endereco VARCHAR,
+    ID_hospede SERIAL PRIMARY KEY,
+    nome_hospede VARCHAR(100) NOT NULL,
+    cpf_hospede VARCHAR(14) UNIQUE NOT NULL,
+    email_hospede VARCHAR(255) UNIQUE,
+    telefone_hospede VARCHAR(20) UNIQUE,
+    CEP_endereco VARCHAR(10),
     numero_endereco INT,
-    rua_endereco VARCHAR,
-    cidade_endereco VARCHAR,
-    pais_endereco VARCHAR,
-    estado_endereco VARCHAR
+    rua_endereco VARCHAR(100),
+    cidade_endereco VARCHAR(50),
+    pais_endereco VARCHAR(50),
+    estado_endereco VARCHAR(50)
 );
 
 CREATE TABLE Reserva (
-    check_in_reserva TIMESTAMP,
-    check_out_reserva TIMESTAMP,
-    status_reserva VARCHAR,
-    ID_reserva int PRIMARY KEY,
-    fk_Hospede_ID_hospede int,
-    data_inicio_reserva DATE,
-    data_final_reserva DATE
+    ID_reserva SERIAL PRIMARY KEY,
+    fk_Hospede_ID_hospede INT NOT NULL,
+    data_inicio_reserva DATE NOT NULL,
+    data_final_reserva DATE NOT NULL,
+    check_in_reserva TIMESTAMP NOT NULL,
+    check_out_reserva TIMESTAMP NOT NULL,
+    status_reserva VARCHAR(20) NOT NULL DEFAULT 'Pendente' CHECK (status_reserva IN ('Confirmada', 'Pendente', 'Cancelada'))
 );
 
 CREATE TABLE Pagamento (
-    ID_pagamento int PRIMARY KEY,
-    data_pagamento DATE,
-    valor_pagamento DECIMAL,
-    metodo_pagamento VARCHAR,
-    status_pagamento VARCHAR,
-    fk_Reserva_ID_reserva int,
-    desconto_pagamento DECIMAL
+    ID_pagamento SERIAL PRIMARY KEY,
+    data_pagamento DATE NOT NULL,
+    valor_pagamento DECIMAL(10,2) NOT NULL CHECK (valor_pagamento >= 0),
+    metodo_pagamento VARCHAR(50) NOT NULL CHECK (metodo_pagamento IN ('Credito', 'Debito', 'Pix', 'Boleto', 'Dinheiro')),
+    status_pagamento VARCHAR(20) NOT NULL DEFAULT 'Pendente' CHECK (status_pagamento IN ('Pago', 'Pendente', 'Cancelado')),
+    fk_Reserva_ID_reserva INT NOT NULL,
+    desconto_pagamento DECIMAL(10,2) DEFAULT 0 CHECK (desconto_pagamento >= 0)
 );
 
 CREATE TABLE Funcionario (
-    ID_funcionario int PRIMARY KEY,
-    nome_funcionario VARCHAR,
-    cargo_funcionario VARCHAR,
-    turno_funcionario VARCHAR,
-    fk_telefone_funcionario_telefone_funcionario_PK VARCHAR,
-    salario_funcionario DECIMAL
+    ID_funcionario SERIAL PRIMARY KEY,
+    nome_funcionario VARCHAR(100) NOT NULL,
+    cargo_funcionario VARCHAR(50) NOT NULL,
+    turno_funcionario VARCHAR(20) NOT NULL CHECK (turno_funcionario IN ('Manha', 'Tarde', 'Noite')),
+    telefone_funcionario VARCHAR(20) UNIQUE,
+    salario_funcionario DECIMAL(10,2) NOT NULL CHECK (salario_funcionario >= 0)
 );
 
 CREATE TABLE Servico (
-    ID_servico int PRIMARY KEY,
-    tipo_servico VARCHAR,
-    descricao_servico VARCHAR,
-    valor_servico DECIMAL
+    ID_servico SERIAL PRIMARY KEY,
+    tipo_servico VARCHAR(50) NOT NULL CHECK (tipo_servico IN ('Limpeza', 'Manutencao', 'Alimentacao','Seguranca')),
+    descricao_servico TEXT,
+    valor_servico DECIMAL(10,2) NOT NULL CHECK (valor_servico >= 0)
 );
 
 CREATE TABLE Quarto (
-    ID_quarto int PRIMARY KEY,
-    numero_quarto int,
-    tipo_quarto VARCHAR,
-    status_quarto VARCHAR,
-    nivel_quarto VARCHAR,
-    preco_quarto DECIMAL,
-    fk_Reserva_ID_reserva int
-);
-
-CREATE TABLE email_hospede (
-    email_hospede_PK VARCHAR NOT NULL PRIMARY KEY,
-    email_hospede VARCHAR
-);
-
-CREATE TABLE telefone_hospede (
-    telefone_hospede_PK VARCHAR NOT NULL PRIMARY KEY,
-    telefone_hospede VARCHAR
-);
-
-CREATE TABLE telefone_funcionario (
-    telefone_funcionario_PK VARCHAR NOT NULL PRIMARY KEY,
-    telefone_funcionario VARCHAR
+    ID_quarto SERIAL PRIMARY KEY,
+    numero_quarto INT UNIQUE NOT NULL,
+    tipo_quarto VARCHAR(50) NOT NULL,
+    status_quarto VARCHAR(20) NOT NULL DEFAULT 'Disponivel' CHECK (status_quarto IN ('Disponivel', 'Ocupado', 'Em manutencao')),
+    nivel_quarto VARCHAR(50) NOT NULL CHECK (nivel_quarto IN ('Comum', 'Executivo', 'Master')),
+    preco_quarto DECIMAL(10,2) NOT NULL CHECK (preco_quarto >= 0),
+    fk_Reserva_ID_reserva INT
 );
 
 CREATE TABLE Solicita (
-    fk_Reserva_ID_reserva int,
-    fk_Servico_ID_servico int
+    fk_Reserva_ID_reserva INT NOT NULL,
+    fk_Servico_ID_servico INT NOT NULL,
+    PRIMARY KEY (fk_Reserva_ID_reserva, fk_Servico_ID_servico)
 );
 
 CREATE TABLE Presta (
-    fk_Servico_ID_servico int,
-    fk_Funcionario_ID_funcionario int
+    fk_Servico_ID_servico INT NOT NULL,
+    fk_Funcionario_ID_funcionario INT NOT NULL,
+    PRIMARY KEY (fk_Servico_ID_servico, fk_Funcionario_ID_funcionario)
 );
- 
-ALTER TABLE Hospede ADD CONSTRAINT FK_Hospede_2
-    FOREIGN KEY (fk_email_hospede_email_hospede_PK)
-    REFERENCES email_hospede (email_hospede_PK)
-    ON DELETE NO ACTION;
- 
-ALTER TABLE Hospede ADD CONSTRAINT FK_Hospede_3
-    FOREIGN KEY (fk_telefone_hospede_telefone_hospede_PK)
-    REFERENCES telefone_hospede (telefone_hospede_PK)
-    ON DELETE NO ACTION;
- 
-ALTER TABLE Reserva ADD CONSTRAINT FK_Reserva_2
+
+-- Adicionando Foreign Keys
+
+ALTER TABLE Reserva ADD CONSTRAINT FK_Reserva_Hospede
     FOREIGN KEY (fk_Hospede_ID_hospede)
     REFERENCES Hospede (ID_hospede)
     ON DELETE CASCADE;
- 
-ALTER TABLE Pagamento ADD CONSTRAINT FK_Pagamento_2
+
+ALTER TABLE Pagamento ADD CONSTRAINT FK_Pagamento_Reserva
     FOREIGN KEY (fk_Reserva_ID_reserva)
     REFERENCES Reserva (ID_reserva)
-    ON DELETE RESTRICT;
- 
-ALTER TABLE Funcionario ADD CONSTRAINT FK_Funcionario_2
-    FOREIGN KEY (fk_telefone_funcionario_telefone_funcionario_PK)
-    REFERENCES telefone_funcionario (telefone_funcionario_PK)
-    ON DELETE NO ACTION;
- 
-ALTER TABLE Quarto ADD CONSTRAINT FK_Quarto_2
+    ON DELETE CASCADE;
+
+ALTER TABLE Quarto ADD CONSTRAINT FK_Quarto_Reserva
     FOREIGN KEY (fk_Reserva_ID_reserva)
     REFERENCES Reserva (ID_reserva)
-    ON DELETE RESTRICT;
- 
-ALTER TABLE Solicita ADD CONSTRAINT FK_Solicita_1
+    ON DELETE SET NULL;
+
+ALTER TABLE Solicita ADD CONSTRAINT FK_Solicita_Reserva
     FOREIGN KEY (fk_Reserva_ID_reserva)
     REFERENCES Reserva (ID_reserva)
-    ON DELETE RESTRICT;
- 
-ALTER TABLE Solicita ADD CONSTRAINT FK_Solicita_2
+    ON DELETE CASCADE;
+
+ALTER TABLE Solicita ADD CONSTRAINT FK_Solicita_Servico
     FOREIGN KEY (fk_Servico_ID_servico)
     REFERENCES Servico (ID_servico)
     ON DELETE SET NULL;
- 
-ALTER TABLE Presta ADD CONSTRAINT FK_Presta_1
+
+ALTER TABLE Presta ADD CONSTRAINT FK_Presta_Servico
     FOREIGN KEY (fk_Servico_ID_servico)
     REFERENCES Servico (ID_servico)
-    ON DELETE RESTRICT;
- 
-ALTER TABLE Presta ADD CONSTRAINT FK_Presta_2
+    ON DELETE CASCADE;
+
+ALTER TABLE Presta ADD CONSTRAINT FK_Presta_Funcionario
     FOREIGN KEY (fk_Funcionario_ID_funcionario)
     REFERENCES Funcionario (ID_funcionario)
-    ON DELETE RESTRICT;
+    ON DELETE CASCADE;
