@@ -1,0 +1,6 @@
+"id_servico,""tipo_servico"",""descricao_servico"",""valor_servico"""
+"1,""Limpeza"",""Servico de limpeza e arrumacao dos quartos"",""50.00"""
+"2,""Alimentacao"",""Cafe da manha completo"",""35.00"""
+"3,""Manutencao"",""Reparo e manutencao geral"",""100.00"""
+"4,""Seguranca"",""Monitoramento 24h e patrulha interna"",""75.00"""
+"5,""Alimentacao"",""Jantar a la carte no restaurante do hotel"",""80.00"""
