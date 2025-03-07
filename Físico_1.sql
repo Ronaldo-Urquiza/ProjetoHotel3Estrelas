@@ -45,7 +45,7 @@ CREATE TABLE Funcionario (
 
 CREATE TABLE Servico (
     ID_servico SERIAL PRIMARY KEY,
-    tipo_servico VARCHAR(50) NOT NULL CHECK (tipo_servico IN ('Limpeza', 'Manutencao', 'Alimentacao','Seguranca')),
+    tipo_servico VARCHAR(50) NOT NULL CHECK (tipo_servico IN ('Limpeza', 'Manutencao', 'Alimentacao', 'Seguranca')),
     descricao_servico TEXT,
     valor_servico DECIMAL(10,2) NOT NULL CHECK (valor_servico >= 0)
 );
@@ -53,7 +53,7 @@ CREATE TABLE Servico (
 CREATE TABLE Quarto (
     ID_quarto SERIAL PRIMARY KEY,
     numero_quarto INT UNIQUE NOT NULL,
-    tipo_quarto VARCHAR(50) NOT NULL CHECK (tipo_quarto IN ('Individual', 'Duplo Solteiro', 'Triplo Solteiro','Casal')),
+    tipo_quarto VARCHAR(50) NOT NULL CHECK (tipo_quarto IN ('Individual', 'Duplo Solteiro', 'Triplo Solteiro', 'Casal')),
     status_quarto VARCHAR(20) NOT NULL DEFAULT 'Disponivel' CHECK (status_quarto IN ('Disponivel', 'Ocupado', 'Em manutencao')),
     nivel_quarto VARCHAR(50) NOT NULL CHECK (nivel_quarto IN ('Comum', 'Executivo', 'Master')),
     preco_quarto DECIMAL(10,2) NOT NULL CHECK (preco_quarto >= 0),
