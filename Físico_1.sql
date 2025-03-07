@@ -53,7 +53,7 @@ CREATE TABLE Servico (
 CREATE TABLE Quarto (
     ID_quarto SERIAL PRIMARY KEY,
     numero_quarto INT UNIQUE NOT NULL,
-    tipo_quarto VARCHAR(50) NOT NULL,
+    tipo_quarto VARCHAR(50) NOT NULL CHECK (tipo_quarto IN ('Individual', 'Duplo Solteiro', 'Triplo Solteiro','Casal')),
     status_quarto VARCHAR(20) NOT NULL DEFAULT 'Disponivel' CHECK (status_quarto IN ('Disponivel', 'Ocupado', 'Em manutencao')),
     nivel_quarto VARCHAR(50) NOT NULL CHECK (nivel_quarto IN ('Comum', 'Executivo', 'Master')),
     preco_quarto DECIMAL(10,2) NOT NULL CHECK (preco_quarto >= 0),
