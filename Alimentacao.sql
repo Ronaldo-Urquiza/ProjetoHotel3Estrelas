@@ -3,9 +3,9 @@ INSERT INTO Hospede (nome_hospede, cpf_hospede, email_hospede, telefone_hospede,
 VALUES
 ('Ronaldo Urquiza', '123.456.789-00', 'ronaldo@email.com', '+55 83 99999-0001', '58400-100', 150, 'Rua Floriano Peixoto', 'Campina Grande', 'Brasil', 'PB'),
 ('Joao Pinheiro', '987.654.321-00', 'maria@email.com', '+55 83 99999-0002', '58030-020', 250, 'Avenida Epitacio Pessoa', 'João Pessoa', 'Brasil', 'PB'),
-('Ianna Dayiah', '321.654.987-00', 'ianna@email.com', '+55 83 99999-0003', '58410-200', 310, 'Rua Miguel Couto', 'Campina Grande', 'Brasil', 'PB'),
+('Ana Banana', '321.654.987-00', 'ianna@email.com', '+55 83 99999-0003', '58410-200', 310, 'Rua Miguel Couto', 'Campina Grande', 'Brasil', 'PB'),
 ('Belinha Isabelle', '456.789.123-00', 'belinha@email.com', '+55 83 99999-0004', '58050-110', 420, 'Rua Princesa Isabel', 'João Pessoa', 'Brasil', 'PB'),
-('Baal Zebul', '789.123.456-00', 'baal@email.com', '+55 83 99999-0005', '58430-050', 530, 'Avenida Assis Chateaubriand', 'Campina Grande', 'Brasil', 'PB');
+('Otávio Oliva', '789.123.456-00', 'baal@email.com', '+55 83 99999-0005', '58430-050', 530, 'Avenida Assis Chateaubriand', 'Campina Grande', 'Brasil', 'PB');
 
 -- Inserindo quartos
 INSERT INTO Quarto (numero_quarto, tipo_quarto, status_quarto, nivel_quarto, preco_quarto)
@@ -46,10 +46,10 @@ VALUES
 INSERT INTO Funcionario (nome_funcionario, cargo_funcionario, turno_funcionario, telefone_funcionario, salario_funcionario)
 VALUES
 ('Kurby', 'Recepcionista', 'Manha', '+55 83 98888-0003', 2200.00),
-('Andressa Urach', 'Camareira', 'Tarde', '+55 83 97777-0004', 1900.00),
+('Lays', 'Camareira', 'Tarde', '+55 83 97777-0004', 1900.00),
 ('Klapaucius', 'Gerente', 'Noite', '+55 83 96666-0005', 4500.00),
-('Ines Brasil', 'Cozinheira', 'Manha', '+55 83 95555-0006', 2800.00),
-('Lindonalvuelson', 'Manutenção', 'Tarde', '+55 83 94444-0007', 2300.00);
+('Paola Caçarola', 'Cozinheira', 'Manha', '+55 83 95555-0006', 2800.00),
+('Ron', 'Manutenção', 'Tarde', '+55 83 94444-0007', 2300.00);
 
 -- Inserindo serviços oferecidos pelo hotel
 INSERT INTO Servico (tipo_servico, descricao_servico, valor_servico)
@@ -65,15 +65,15 @@ INSERT INTO Solicita (fk_Reserva_ID_reserva, fk_Servico_ID_servico)
 VALUES
 (1, 1), -- Ronaldo Urquiza solicitou Limpeza
 (2, 2), -- Joao Pinheiro solicitou Café da Manhã
-(3, 3), -- Ianna Dayiah solicitou Manutenção
+(3, 3), -- Ana Banana solicitou Manutenção
 (4, 4), -- Belinha Isabelle solicitou Segurança
-(5, 5); -- Baal Zebul solicitou Jantar no restaurante
+(5, 5); -- Otávio Oliva solicitou Jantar no restaurante
 
 -- Relacionando serviços prestados por funcionários
 INSERT INTO Presta (fk_Servico_ID_servico, fk_Funcionario_ID_funcionario)
 VALUES
-(2, 1), -- Andressa Urach presta serviço de Limpeza
+(2, 1), -- Lays presta serviço de Limpeza
 (1, 2), -- Kurby cuida da Alimentação (café da manhã)
-(3, 5), -- Lindonalvuelson faz manutenção
+(3, 5), -- Ron faz manutenção
 (4, 3), -- Klapaucius supervisiona a Segurança
-(5, 4); -- Ines Brasil cuida do Jantar no restaurante
+(5, 4); -- Paola Caçarola cuida do Jantar no restaurante
