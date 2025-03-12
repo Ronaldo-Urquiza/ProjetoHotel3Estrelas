@@ -2,17 +2,17 @@
 INSERT INTO Hospede (nome_hospede, cpf_hospede, email_hospede, telefone_hospede, CEP_endereco, numero_endereco, rua_endereco, cidade_endereco, pais_endereco, estado_endereco)
 VALUES
 ('Ronaldo Urquiza', '123.456.789-00', 'ronaldo@email.com', '+55 83 99999-0001', '58400-100', 150, 'Rua Floriano Peixoto', 'Campina Grande', 'Brasil', 'PB'),
-('Joao Pinheiro', '987.654.321-00', 'maria@email.com', '+55 83 99999-0002', '58030-020', 250, 'Avenida Epitacio Pessoa', 'João Pessoa', 'Brasil', 'PB'),
-('Ana Banana', '321.654.987-00', 'ianna@email.com', '+55 83 99999-0003', '58410-200', 310, 'Rua Miguel Couto', 'Campina Grande', 'Brasil', 'PB'),
+('Joao Pinheiro', '987.654.321-00', 'joao@email.com', '+55 83 99999-0002', '58030-020', 250, 'Avenida Epitacio Pessoa', 'João Pessoa', 'Brasil', 'PB'),
+('Ana Banana', '321.654.987-00', 'ana@email.com', '+55 83 99999-0003', '58410-200', 310, 'Rua Miguel Couto', 'Campina Grande', 'Brasil', 'PB'),
 ('Belinha Isabelle', '456.789.123-00', 'belinha@email.com', '+55 83 99999-0004', '58050-110', 420, 'Rua Princesa Isabel', 'João Pessoa', 'Brasil', 'PB'),
-('Otávio Oliva', '789.123.456-00', 'baal@email.com', '+55 83 99999-0005', '58430-050', 530, 'Avenida Assis Chateaubriand', 'Campina Grande', 'Brasil', 'PB');
+('Otavio Oliva', '789.123.456-00', 'otavio@email.com', '+55 83 99999-0005', '58430-050', 530, 'Avenida Assis Chateaubriand', 'Campina Grande', 'Brasil', 'PB');
 
 -- Inserindo quartos
 INSERT INTO Quarto (numero_quarto, tipo_quarto, status_quarto, nivel_quarto, preco_quarto)
 VALUES
 (101, 'Individual', 'Disponivel', 'Executivo', 350.00),
-(102, 'Duplo solteiro', 'Ocupado', 'Comum', 180.00),
-(201, 'Triplo solteiro ', 'Disponivel', 'Master', 500.00),
+(102, 'Duplo Solteiro', 'Ocupado', 'Comum', 180.00),
+(201, 'Triplo Solteiro', 'Disponivel', 'Master', 500.00),
 (202, 'Casal', 'Disponivel', 'Executivo', 400.00),
 (301, 'Casal', 'Ocupado', 'Comum', 190.00);
 
